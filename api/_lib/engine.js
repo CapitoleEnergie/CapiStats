@@ -137,7 +137,8 @@ function parseColumns(specs) {
       case 'rate':       return { id: `rate_${args[0]}_${args[1]}`, kind, num: args[0], den: args[1], label: 'Taux', type: 'rate' };
       case 'distinct':   return { id: `distinct_${args[0]}`, kind, field: args[0], label: args[1] || labelFor(args[0]), type: 'number' };
       case 'sum':        return { id: `sum_${args[0]}`, kind, field: args[0], label: args[1] || labelFor(args[0]), type: 'number' };
-      case 'chips':      return { id: `chips_${args[0]}`, kind, field: args[0], label: args[1] || labelFor(args[0]), type: 'chips' };
+      case 'chips':      return { id: `chips_${args[0]}`, kind, field: args[0], label: args[1] || labelFor(args[0]),
+                                  transform: args[2] || null, type: 'chips' };
       default:           return { id: kind, kind: 'count', label: 'Volume', type: 'badge' };
     }
   });
@@ -164,7 +165,7 @@ function buildBreakdown(spec, rows, cats) {
           g.sums[col.id] = (g.sums[col.id] || 0) + numberValue(row, { field: col.field });
         } else if (col.kind === 'chips') {
           const bucket = (g.chips[col.id] ||= {});
-          for (const v of fieldValues(row, { field: col.field, fallback: 'N/A' })) {
+          for (const v of fieldValues(row, { field: col.field, fallback: 'N/A', transform: col.transform })) {
             bucket[v] = (bucket[v] || 0) + 1;
           }
         }
@@ -283,6 +284,21 @@ function buildDetail(detailSpec, rows) {
       if (col.type === 'list') {
         const list = fieldValues(row, { ...col, multi: true });
         return { display: list.join(', '), list };
+      }
+      if (col.type === 'group') {
+        // Plusieurs champs réunis en une colonne de pastilles, les vides ignorés
+        const items = (col.items || []).map(it => {
+          const v = fieldValue(row, it);
+          if (!v) return null;
+          return { display: `${it.prefix || ''}${v}${it.suffix || ''}`, style: it.style || '' };
+        }).filter(Boolean);
+        return { display: items.map(i => i.display).join(' · '), items };
+      }
+      if (col.type === 'ref') {
+        // Référence, avec un commentaire optionnel affiché dessous
+        const v = fieldValue(row, col);
+        const note = col.note_field ? fieldValue(row, { field: col.note_field }) : null;
+        return { display: v ?? '', note: note || null };
       }
       if (col.type === 'file') {
         // Le chemin de stockage n'est pas une URL : le téléchargement passe
