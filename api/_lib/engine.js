@@ -312,8 +312,69 @@ function buildDetail(detailSpec, rows) {
   return { columns, rows: outRows };
 }
 
+// ── Série temporelle ────────────────────────────────────────
+const JOUR = 86400_000;
+
+function cleParPas(d, pas) {
+  const date = new Date(d);
+  if (pas === 'month') return date.toISOString().slice(0, 7);
+  if (pas === 'week') {
+    // Lundi de la semaine ISO
+    const j = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+    const decalage = (j.getUTCDay() + 6) % 7;
+    j.setUTCDate(j.getUTCDate() - decalage);
+    return j.toISOString().slice(0, 10);
+  }
+  return date.toISOString().slice(0, 10);
+}
+
+function pasSuivant(cle, pas) {
+  if (pas === 'month') {
+    const [a, m] = cle.split('-').map(Number);
+    return new Date(Date.UTC(m === 12 ? a + 1 : a, m === 12 ? 0 : m, 1)).toISOString().slice(0, 7);
+  }
+  const d = new Date(cle + 'T00:00:00Z');
+  d.setUTCDate(d.getUTCDate() + (pas === 'week' ? 7 : 1));
+  return d.toISOString().slice(0, 10);
+}
+
+/**
+ * Points d'évolution, pas choisi selon la période demandée.
+ * Les intervalles sans activité sont remplis à zéro : une courbe
+ * qui saute des jours ment sur la forme de l'activité.
+ */
+function buildTimeseries(rows, cats, days) {
+  if (!rows.length) return null;
+  const pas = !days || days > 180 ? 'month' : days > 45 ? 'week' : 'day';
+
+  const seaux = new Map();
+  for (const row of rows) {
+    const cle = cleParPas(row.created_at, pas);
+    let s = seaux.get(cle);
+    if (!s) { s = { cle, total: 0, categories: {} }; seaux.set(cle, s); }
+    s.total++;
+    if (cats) s.categories[row.__category] = (s.categories[row.__category] || 0) + 1;
+  }
+
+  const bornes = [...seaux.keys()].sort();
+  let debut = bornes[0];
+  const fin = cleParPas(Date.now(), pas);
+  if (days > 0) {
+    const theorique = cleParPas(Date.now() - days * JOUR, pas);
+    if (theorique < debut) debut = theorique;
+  }
+
+  const points = [];
+  for (let cle = debut; cle <= fin && points.length < 400; cle = pasSuivant(cle, pas)) {
+    const s = seaux.get(cle);
+    points.push({ cle, total: s?.total || 0, categories: s?.categories || {} });
+  }
+
+  return { pas, points, max: Math.max(1, ...points.map(p => p.total)) };
+}
+
 // ── Agrégation pure (testable hors base) ────────────────────
-export function aggregate(definition, rows, truncated = false) {
+export function aggregate(definition, rows, truncated = false, options = {}) {
   const cats = categoriesOf(definition);
   tagCategories(rows, cats);
 
@@ -328,6 +389,7 @@ export function aggregate(definition, rows, truncated = false) {
     truncated,
     categories: cats ? cats.map(c => ({ key: c.key, label: c.label, color: c.color || 'blue' })) : [],
     kpis: buildKpis(config.kpis, rows, cats),
+    timeseries: buildTimeseries(rows, cats, Number(options.days ?? 0)),
     breakdowns: (config.breakdowns || []).map(b => buildBreakdown(b, rows, cats)),
     detail: buildDetail(config.detail, rows),
     generated_at: new Date().toISOString(),
@@ -337,5 +399,5 @@ export function aggregate(definition, rows, truncated = false) {
 // ── Point d'entrée ──────────────────────────────────────────
 export async function computeStats(definition, filters) {
   const { rows, truncated } = await fetchLogs(definition, filters);
-  return aggregate(definition, rows, truncated);
+  return aggregate(definition, rows, truncated, { days: filters?.days });
 }
