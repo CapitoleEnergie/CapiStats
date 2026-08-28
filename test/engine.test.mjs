@@ -13,7 +13,10 @@ const ROOT = path.resolve(import.meta.dirname, '..');
 
 // ── Chargement des définitions depuis la migration ──────────
 function loadDefinitions() {
-  const sql = fs.readFileSync(path.join(ROOT, 'db/001_stats_registry.sql'), 'utf8');
+  const sql = fs.readdirSync(path.join(ROOT, 'db'))
+    .filter(f => f.endsWith('.sql')).sort()
+    .map(f => fs.readFileSync(path.join(ROOT, 'db', f), 'utf8'))
+    .join('\n');
   const defs = {};
   const re = /'([a-z_]+)',\s*(?:'[a-z-]+'|null),\s*\n\s*'[^']*'[^$]*\$m\$([\s\S]*?)\$m\$::jsonb,\s*\n\s*\$c\$([\s\S]*?)\$c\$::jsonb/g;
   let m;
@@ -34,7 +37,7 @@ function check(label, actual, expected) {
 }
 
 const defs = loadDefinitions();
-check('5 définitions extraites', Object.keys(defs).length, 5);
+check('6 définitions extraites', Object.keys(defs).length, 6);
 
 const filter = def => ROWS.filter(r => actionMatches(r.action, def.match));
 const kpi = (res, label) => res.kpis.find(k => k.label === label)?.value;
@@ -135,6 +138,69 @@ const kpi = (res, label) => res.kpis.find(k => k.label === label)?.value;
   check('contrats_mint — moyenne / utilisateur', kpi(res, 'Moyenne / utilisateur'), 1);
   const bySeg = res.breakdowns.find(b => b.key === 'by_segment');
   check('contrats_mint — segments', bySeg.rows.map(r => r.key).sort(), ['C4', 'MULTI']);
+}
+
+// ── Import Odoo : taux rapporté au total, sommes, fichiers ──
+{
+  const def = defs.odoo_import;
+  const rows = filter(def);
+  check('odoo — lignes retenues', rows.length, 4);
+
+  const res = aggregate(def, rows);
+  check('odoo — transformations', kpi(res, 'Transformations'), 4);
+  check('odoo — réussies', kpi(res, 'Réussies'), 3);
+  check('odoo — en erreur', kpi(res, 'En erreur'), 1);
+  check('odoo — taux d\'erreur (1/4)', kpi(res, "Taux d'erreur"), 25);
+  check('odoo — lignes générées (1243+412+297)', kpi(res, 'Lignes générées'), 1952);
+  check('odoo — moyenne lignes / fichier (1952/4)', kpi(res, 'Moy. lignes / fichier'), 488);
+  check('odoo — utilisateurs', kpi(res, 'Utilisateurs actifs'), 2);
+
+  const byUser = res.breakdowns.find(b => b.key === 'by_user');
+  const dl = byUser.rows.find(r => r.key === 'dlauger@capitole-energie.com');
+  check('odoo — dlauger volume', dl.count, 3);
+  check('odoo — dlauger taux d\'erreur (1/3)', dl.cells.rate_erreur___total.value, 33);
+  check('odoo — dlauger lignes générées (1243+297)', dl.cells['sum_details.rows_out'].value, 1540);
+
+  const byError = res.breakdowns.find(b => b.key === 'by_error');
+  check('odoo — une seule erreur listée', byError.rows.length, 1);
+  check('odoo — libellé de l\'erreur', byError.rows[0].key, 'Colonne « ref_client » absente du fichier source');
+
+  // Colonne fichier
+  const fichier = res.detail.rows[0].values[3];
+  check('odoo — nom du fichier', fichier.display, 'import_odoo_clients_2026-08-28.csv');
+  check('odoo — chemin de stockage exposé', fichier.path, '2026/08/2026-08-28T09-00-00-000Z_import_odoo_clients.csv');
+  check('odoo — taille', fichier.size, 48211);
+  const purge = res.detail.rows.find(r => r.values[3].purged);
+  check('odoo — fichier purgé sans chemin', purge.values[3].path, null);
+  const erreur = res.detail.rows.find(r => r.category === 'erreur');
+  check('odoo — ligne en erreur : nom du source, pas de fichier à télécharger',
+    [erreur.values[3].display, erreur.values[3].path, !!erreur.values[3].purged],
+    ['clients_juin.xlsx', null, false]);
+}
+
+// ── Série temporelle du graphique ───────────────────────────
+{
+  const def = defs.box_prix;
+  const rows = filter(def);
+
+  const jour = aggregate(def, rows, false, { days: 7 });
+  check('série — pas journalier sur 7 jours', jour.timeseries.pas, 'day');
+  check('série — trous comblés à zéro',
+    jour.timeseries.points.every(p => typeof p.total === 'number'), true);
+  check('série — total conservé',
+    jour.timeseries.points.reduce((s, p) => s + p.total, 0), rows.length);
+  check('série — points ordonnés',
+    jour.timeseries.points.map(p => p.cle).join() ===
+    jour.timeseries.points.map(p => p.cle).sort().join(), true);
+  check('série — catégories ventilées par point',
+    jour.timeseries.points.some(p => p.categories.export > 0), true);
+
+  const semaine = aggregate(def, rows, false, { days: 90 });
+  check('série — pas hebdomadaire sur 3 mois', semaine.timeseries.pas, 'week');
+  const mois = aggregate(def, rows, false, { days: 0 });
+  check('série — pas mensuel sur tout l\'historique', mois.timeseries.pas, 'month');
+  check('série — maximum cohérent',
+    mois.timeseries.max, Math.max(...mois.timeseries.points.map(p => p.total)));
 }
 
 // ── Accès aux champs ────────────────────────────────────────
