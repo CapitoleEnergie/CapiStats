@@ -188,7 +188,8 @@ function buildBreakdown(spec, rows, cats) {
         case 'categories': cells[col.id] = { value: g.categories }; break;
         case 'rate': {
           const num = g.categories[col.num] || 0;
-          const den = g.categories[col.den] || 0;
+          // « __total » = rapporté au volume du groupe, sinon à une autre catégorie
+          const den = col.den === '__total' ? g.count : (g.categories[col.den] || 0);
           cells[col.id] = { value: den ? Math.round((num / den) * 100) : null };
           break;
         }
@@ -240,7 +241,7 @@ function buildKpis(specs, rows, cats) {
       }
       case 'rate': {
         const num = catCounts[spec.num] || 0;
-        const den = catCounts[spec.den] || 0;
+        const den = spec.den === '__total' ? total : (catCounts[spec.den] || 0);
         out.value = den ? Math.round((num / den) * 100) : 0;
         out.suffix = '%'; break;
       }
@@ -282,6 +283,15 @@ function buildDetail(detailSpec, rows) {
       if (col.type === 'list') {
         const list = fieldValues(row, { ...col, multi: true });
         return { display: list.join(', '), list };
+      }
+      if (col.type === 'file') {
+        // Le chemin de stockage n'est pas une URL : le téléchargement passe
+        // par /api/file, qui revérifie les droits et signe un lien court.
+        const name = fieldValue(row, col);
+        const path = col.path_field ? fieldValue(row, { field: col.path_field }) : null;
+        const size = col.size_field ? Number(fieldValue(row, { field: col.size_field })) || null : null;
+        const purged = row.details?.file_purged === true;
+        return { display: name ?? '', path: purged ? null : path, size, purged };
       }
       const v = fieldValue(row, col);
       return { display: v ?? '' };
