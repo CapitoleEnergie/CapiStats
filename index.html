@@ -118,6 +118,7 @@
     @keyframes spin{to{transform:rotate(360deg)}}
     @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
     .fade{animation:fadeUp .35s ease-out}
+    .file-btn{max-width:230px;overflow:hidden;white-space:nowrap}
     input.search{padding:8px 14px;border:1.5px solid var(--gris-contour);border-radius:var(--radius);font-family:'Poppins',sans-serif;font-size:12.5px;outline:none;min-width:260px}
     input.search:focus{border-color:var(--principale-bleu)}
 
@@ -504,12 +505,58 @@ function paintDetail(query){
     if (col.type === 'list') return `<td>${(v.list || []).map(x => `<span class="chip blue">${esc(x)}</span>`).join('') || '<span class="muted">—</span>'}</td>`;
     if (col.type === 'ref') return `<td>${v.display ? `<span class="ref">📁 ${esc(v.display)}</span>` : '<span class="muted">—</span>'}</td>`;
     if (col.type === 'note') return `<td>${v.display ? `<div class="note">💬 ${esc(v.display)}</div>` : '<span class="muted">—</span>'}</td>`;
+    if (col.type === 'file') return `<td>${renderFileCell(v)}</td>`;
     return `<td>${v.display ? esc(v.display) : '<span class="muted">—</span>'}</td>`;
   }).join('') + '</tr>').join('')
     : `<tr><td colspan="${cols.length}" class="center" style="padding:24px">Aucune ligne ne correspond.</td></tr>`;
 
   el('detailCount').textContent = `${shown.length} / ${rows.length} ligne(s) affichée(s)`;
   el('moreBtn').style.display = shown.length < rows.length ? 'inline-flex' : 'none';
+}
+
+// ── FICHIERS GÉNÉRÉS ────────────────────────────────────────
+const fmtSize = o => !o ? '' : o < 1024 ? `${o} o`
+  : o < 1048576 ? `${(o / 1024).toFixed(0)} Ko` : `${(o / 1048576).toFixed(1)} Mo`;
+
+function renderFileCell(v){
+  if (!v.display) return '<span class="muted">—</span>';
+  if (v.purged) {
+    return `<span class="muted" title="Fichier supprimé après 90 jours de conservation">${esc(v.display)}</span>
+            <span class="chip grey">purgé</span>`;
+  }
+  if (!v.path) return `<span class="muted">${esc(v.display)}</span>`;
+  return `<button class="btn btn-secondary btn-sm file-btn" data-path="${esc(v.path)}"
+            onclick="downloadFile(this)" title="${esc(v.display)}">
+            <span class="material-icons-round">download</span>${esc(truncate(v.display, 28))}
+          </button>${v.size ? `<div class="muted">${fmtSize(v.size)}</div>` : ''}`;
+}
+
+const truncate = (s, n) => s.length <= n ? s : s.slice(0, n - 1) + '…';
+
+async function downloadFile(btn){
+  const original = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="material-icons-round spin">sync</span>';
+  try {
+    const res = await fetch('/api/file', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ path: btn.dataset.path })
+    });
+    const r = await res.json();
+    if (!res.ok) throw new Error(r.error || 'Téléchargement impossible');
+    // Le lien signé n'est valable que 60 secondes : on l'ouvre immédiatement
+    const a = document.createElement('a');
+    a.href = r.url;
+    a.download = r.filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  } catch (e) {
+    alert(e.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = original;
+  }
 }
 
 // ── EXPORT EXCEL ────────────────────────────────────────────
