@@ -1,25 +1,333 @@
 [
-  {"id":"4b4e1d3c","email":"rbonnet@capitole-energie.com","action":"Box prix exportée","details":{"compte":"LABORATOIRE INSPHY","energie":"elec","segment":"C4","ref_dossier":"001AZ000004gzDJYAY"},"created_at":"2026-08-27T12:46:07.301162"},
-  {"id":"796875ab","email":"tleuwers@capitole-energie.com","action":"Fournisseurs transmis","details":{"ddf":"01/02/2027","dff":"31/01/2030","note":"7","count":3,"syndic":"non","volume":"2","energie":"elec","segment":"C5","commentaire":"","ref_dossier":"Opp-00025021 | Elec | Courtage | 2026.08.27 | FINANSUR | Conquête","fournisseurs":["ALTERNA","ENDESA","VATTENFALL (C5)"],"fournisseur_actuel":"ENGIE"},"created_at":"2026-08-27T12:46:29.263490"},
-  {"id":"f553470d","email":"rbonnet@capitole-energie.com","action":"Box prix consultée","details":{"compte":"LABORATOIRE INSPHY","energie":"elec","segment":"C4","ref_dossier":"001AZ000004gzDJYAY"},"created_at":"2026-08-27T12:44:20.446539"},
-  {"id":"aa83b003","email":"tleuwers@capitole-energie.com","action":"Fournisseurs transmis","details":{"ddf":"01/09/2026","dff":"31/08/2029","note":"7","count":6,"syndic":"oui","volume":"536","energie":"gaz","segment":"T3","commentaire":"","ref_dossier":"Opp-00025018 | Gaz | Courtage | 2026.08.27 | BOUVET CARTIER IMMOBILIER | Conquête","fournisseurs":["ENDESA","GAZ DE BORDEAUX","PICOTY","DYNEFF","GEG","GEDIA"],"fournisseur_actuel":""},"created_at":"2026-08-27T10:19:37.052494"},
-  {"id":"f9bbb2b0","email":"crm.capitole@gmail.com","action":"Box prix consultée","details":{"compte":"ASPASIA BUI KIM KHUE","energie":"gaz / elec","segment":"T2, T1, C2, C4, T3","ref_dossier":"001AZ000004voYFYAY"},"created_at":"2026-08-27T09:05:40.542009"},
-  {"id":"d9801aff","email":"ndiakhate@capitole-energie.com","action":"Contrat GDB généré — contrat_GDB_citya_barioz_immobilier.docx","details":{"client":"CITYA BARIOZ IMMOBILIER","filename":"contrat_GDB_citya_barioz_immobilier.docx","fournisseur":"GAZ DE BORDEAUX"},"created_at":"2026-08-27T08:49:38.570180"},
-  {"id":"acc00001","email":"rbonnet@capitole-energie.com","action":"Accès à l'application \"fournisseur\"","details":null,"created_at":"2026-08-27T08:30:00.000000"},
-  {"id":"acc00002","email":"tleuwers@capitole-energie.com","action":"Accès à l'application \"fournisseur\"","details":null,"created_at":"2026-08-27T08:20:00.000000"},
-  {"id":"acc00003","email":"tleuwers@capitole-energie.com","action":"Accès à l'application \"portail-it\"","details":null,"created_at":"2026-08-27T08:10:00.000000"},
-  {"id":"acc00004","email":"crm.capitole@gmail.com","action":"Accès à l'application \"box-prix\"","details":null,"created_at":"2026-08-27T08:00:00.000000"},
-  {"id":"7b20139c","email":"rbonnet@capitole-energie.com","action":"Box prix consultée","details":{"compte":"KARTIX PARK","energie":"elec","segment":"C4","ref_dossier":"001AZ000006jmJBYAY"},"created_at":"2026-08-26T07:27:04.011114"},
-  {"id":"e29dc00f","email":"pjoffrin@capitole-energie.com","action":"Box prix consultée","details":{"compte":"MAISON DES CONSEILS","energie":"elec","segment":"C5","ref_dossier":"001SZ00000mbdy3YAA"},"created_at":"2026-08-25T14:55:08.640507"},
-  {"id":"b09af8ce","email":"rbonnet@capitole-energie.com","action":"Box prix consultée","details":{"compte":"TECHNIC FRANCE","energie":"gaz / elec","segment":"T2, C4, C2, T3","ref_dossier":"001AZ000003lpcaYAA"},"created_at":"2026-08-25T13:51:06.830705"},
-  {"id":"efe5390a","email":"crm.capitole@gmail.com","action":"Box prix exportée","details":{"compte":"3A","energie":"gaz","segment":"T2","ref_dossier":"00109000015hNxxAAE"},"created_at":"2026-08-25T08:30:19.231100"},
-  {"id":"21ec26c6","email":"crm.capitole@gmail.com","action":"Box prix consultée","details":{"compte":"3A","energie":"elec / gaz","segment":"C5, T2, C4","ref_dossier":"00109000015hNxxAAE"},"created_at":"2026-08-25T08:29:54.955955"},
-  {"id":"e5dc15ea","email":"crm.capitole@gmail.com","action":"Box prix consultée","details":{"compte":"TEST Maxance","energie":"elec / gaz","segment":"C4, C5, T2, C2, T1, C3","ref_dossier":"001AZ000006rxVqYAI"},"created_at":"2026-08-25T08:05:41.602771"},
-  {"id":"1a55facb","email":"vchoisy@capitole-energie.com","action":"Contrat GDB généré — contrat_GDB_davenne.docx","details":{"client":"DAVENNE","fournisseur":"GAZ DE BORDEAUX"},"created_at":"2026-08-24T09:25:47.081398"},
-  {"id":"53b39d8d","email":"dlauger@capitole-energie.com","action":"Contrat GDB généré — contrat_GDB_hotel_axial_beaubourg.docx","details":{"client":"HOTEL AXIAL BEAUBOURG","fournisseur":"GAZ DE BORDEAUX"},"created_at":"2026-08-03T13:24:22.728793"},
-  {"id":"48c7edaf","email":"mlepage@capitole-energie.com","action":"Contrat GDB généré — contrat_GDB_advenis_property_management.docx","details":{"client":"ADVENIS PROPERTY MANAGEMENT","fournisseur":"GAZ DE BORDEAUX"},"created_at":"2026-07-30T08:05:47.717154"},
-  {"id":"7831582e","email":"mlepage@capitole-energie.com","action":"Contrat GDB généré — contrat_GDB_hotel_axial_beaubourg.docx","details":{"client":"HOTEL AXIAL BEAUBOURG","fournisseur":"GAZ DE BORDEAUX"},"created_at":"2026-07-30T08:04:47.898173"},
-  {"id":"mint0001","email":"mlepage@capitole-energie.com","action":"Contrat généré — contrat_C4_hotel_le_relais_saint_germain_01-01-2028.docx","details":{"segment":"C4"},"created_at":"2026-07-08T15:38:38.555232"},
-  {"id":"mint0002","email":"vchoisy@capitole-energie.com","action":"Contrat généré — contrat_MULTI_osiris_16-07-2026.docx","details":{"segment":"MULTI"},"created_at":"2026-07-16T10:18:49.838400"},
-  {"id":"retour01","email":"mlepage@capitole-energie.com","action":"Retour gain GDB généré — retour_gain_GDB_solexia.xlsx","details":{"client":"SOLEXIA"},"created_at":"2026-07-28T09:10:20.946814"}
+ {
+  "id": "odoo0001",
+  "email": "dlauger@capitole-energie.com",
+  "action": "Import Odoo généré",
+  "details": {
+   "filename": "import_odoo_clients_2026-08-28.csv",
+   "path": "2026/08/2026-08-28T09-00-00-000Z_import_odoo_clients.csv",
+   "size": 48211,
+   "rows_in": 1250,
+   "rows_out": 1243,
+   "rows_rejected": 7,
+   "import_type": "res.partner",
+   "client": "CITYA BARIOZ",
+   "duration_ms": 1840,
+   "error": null
+  },
+  "created_at": "2026-08-28T09:00:00.000000"
+ },
+ {
+  "id": "odoo0002",
+  "email": "dlauger@capitole-energie.com",
+  "action": "Import Odoo en erreur",
+  "details": {
+   "filename": "clients_juin.xlsx",
+   "path": null,
+   "size": null,
+   "rows_in": 80,
+   "rows_out": null,
+   "rows_rejected": null,
+   "import_type": "res.partner",
+   "client": null,
+   "error": "Colonne « ref_client » absente du fichier source"
+  },
+  "created_at": "2026-08-27T16:20:00.000000"
+ },
+ {
+  "id": "4b4e1d3c",
+  "email": "rbonnet@capitole-energie.com",
+  "action": "Box prix exportée",
+  "details": {
+   "compte": "LABORATOIRE INSPHY",
+   "energie": "elec",
+   "segment": "C4",
+   "ref_dossier": "001AZ000004gzDJYAY"
+  },
+  "created_at": "2026-08-27T12:46:07.301162"
+ },
+ {
+  "id": "796875ab",
+  "email": "tleuwers@capitole-energie.com",
+  "action": "Fournisseurs transmis",
+  "details": {
+   "ddf": "01/02/2027",
+   "dff": "31/01/2030",
+   "note": "7",
+   "count": 3,
+   "syndic": "non",
+   "volume": "2",
+   "energie": "elec",
+   "segment": "C5",
+   "commentaire": "",
+   "ref_dossier": "Opp-00025021 | Elec | Courtage | 2026.08.27 | FINANSUR | Conquête",
+   "fournisseurs": [
+    "ALTERNA",
+    "ENDESA",
+    "VATTENFALL (C5)"
+   ],
+   "fournisseur_actuel": "ENGIE"
+  },
+  "created_at": "2026-08-27T12:46:29.263490"
+ },
+ {
+  "id": "f553470d",
+  "email": "rbonnet@capitole-energie.com",
+  "action": "Box prix consultée",
+  "details": {
+   "compte": "LABORATOIRE INSPHY",
+   "energie": "elec",
+   "segment": "C4",
+   "ref_dossier": "001AZ000004gzDJYAY"
+  },
+  "created_at": "2026-08-27T12:44:20.446539"
+ },
+ {
+  "id": "aa83b003",
+  "email": "tleuwers@capitole-energie.com",
+  "action": "Fournisseurs transmis",
+  "details": {
+   "ddf": "01/09/2026",
+   "dff": "31/08/2029",
+   "note": "7",
+   "count": 6,
+   "syndic": "oui",
+   "volume": "536",
+   "energie": "gaz",
+   "segment": "T3",
+   "commentaire": "",
+   "ref_dossier": "Opp-00025018 | Gaz | Courtage | 2026.08.27 | BOUVET CARTIER IMMOBILIER | Conquête",
+   "fournisseurs": [
+    "ENDESA",
+    "GAZ DE BORDEAUX",
+    "PICOTY",
+    "DYNEFF",
+    "GEG",
+    "GEDIA"
+   ],
+   "fournisseur_actuel": ""
+  },
+  "created_at": "2026-08-27T10:19:37.052494"
+ },
+ {
+  "id": "f9bbb2b0",
+  "email": "crm.capitole@gmail.com",
+  "action": "Box prix consultée",
+  "details": {
+   "compte": "ASPASIA BUI KIM KHUE",
+   "energie": "gaz / elec",
+   "segment": "T2, T1, C2, C4, T3",
+   "ref_dossier": "001AZ000004voYFYAY"
+  },
+  "created_at": "2026-08-27T09:05:40.542009"
+ },
+ {
+  "id": "d9801aff",
+  "email": "ndiakhate@capitole-energie.com",
+  "action": "Contrat GDB généré — contrat_GDB_citya_barioz_immobilier.docx",
+  "details": {
+   "client": "CITYA BARIOZ IMMOBILIER",
+   "filename": "contrat_GDB_citya_barioz_immobilier.docx",
+   "fournisseur": "GAZ DE BORDEAUX"
+  },
+  "created_at": "2026-08-27T08:49:38.570180"
+ },
+ {
+  "id": "acc00001",
+  "email": "rbonnet@capitole-energie.com",
+  "action": "Accès à l'application \"fournisseur\"",
+  "details": null,
+  "created_at": "2026-08-27T08:30:00.000000"
+ },
+ {
+  "id": "acc00002",
+  "email": "tleuwers@capitole-energie.com",
+  "action": "Accès à l'application \"fournisseur\"",
+  "details": null,
+  "created_at": "2026-08-27T08:20:00.000000"
+ },
+ {
+  "id": "acc00003",
+  "email": "tleuwers@capitole-energie.com",
+  "action": "Accès à l'application \"portail-it\"",
+  "details": null,
+  "created_at": "2026-08-27T08:10:00.000000"
+ },
+ {
+  "id": "acc00004",
+  "email": "crm.capitole@gmail.com",
+  "action": "Accès à l'application \"box-prix\"",
+  "details": null,
+  "created_at": "2026-08-27T08:00:00.000000"
+ },
+ {
+  "id": "7b20139c",
+  "email": "rbonnet@capitole-energie.com",
+  "action": "Box prix consultée",
+  "details": {
+   "compte": "KARTIX PARK",
+   "energie": "elec",
+   "segment": "C4",
+   "ref_dossier": "001AZ000006jmJBYAY"
+  },
+  "created_at": "2026-08-26T07:27:04.011114"
+ },
+ {
+  "id": "e29dc00f",
+  "email": "pjoffrin@capitole-energie.com",
+  "action": "Box prix consultée",
+  "details": {
+   "compte": "MAISON DES CONSEILS",
+   "energie": "elec",
+   "segment": "C5",
+   "ref_dossier": "001SZ00000mbdy3YAA"
+  },
+  "created_at": "2026-08-25T14:55:08.640507"
+ },
+ {
+  "id": "b09af8ce",
+  "email": "rbonnet@capitole-energie.com",
+  "action": "Box prix consultée",
+  "details": {
+   "compte": "TECHNIC FRANCE",
+   "energie": "gaz / elec",
+   "segment": "T2, C4, C2, T3",
+   "ref_dossier": "001AZ000003lpcaYAA"
+  },
+  "created_at": "2026-08-25T13:51:06.830705"
+ },
+ {
+  "id": "efe5390a",
+  "email": "crm.capitole@gmail.com",
+  "action": "Box prix exportée",
+  "details": {
+   "compte": "3A",
+   "energie": "gaz",
+   "segment": "T2",
+   "ref_dossier": "00109000015hNxxAAE"
+  },
+  "created_at": "2026-08-25T08:30:19.231100"
+ },
+ {
+  "id": "21ec26c6",
+  "email": "crm.capitole@gmail.com",
+  "action": "Box prix consultée",
+  "details": {
+   "compte": "3A",
+   "energie": "elec / gaz",
+   "segment": "C5, T2, C4",
+   "ref_dossier": "00109000015hNxxAAE"
+  },
+  "created_at": "2026-08-25T08:29:54.955955"
+ },
+ {
+  "id": "e5dc15ea",
+  "email": "crm.capitole@gmail.com",
+  "action": "Box prix consultée",
+  "details": {
+   "compte": "TEST Maxance",
+   "energie": "elec / gaz",
+   "segment": "C4, C5, T2, C2, T1, C3",
+   "ref_dossier": "001AZ000006rxVqYAI"
+  },
+  "created_at": "2026-08-25T08:05:41.602771"
+ },
+ {
+  "id": "1a55facb",
+  "email": "vchoisy@capitole-energie.com",
+  "action": "Contrat GDB généré — contrat_GDB_davenne.docx",
+  "details": {
+   "client": "DAVENNE",
+   "fournisseur": "GAZ DE BORDEAUX"
+  },
+  "created_at": "2026-08-24T09:25:47.081398"
+ },
+ {
+  "id": "53b39d8d",
+  "email": "dlauger@capitole-energie.com",
+  "action": "Contrat GDB généré — contrat_GDB_hotel_axial_beaubourg.docx",
+  "details": {
+   "client": "HOTEL AXIAL BEAUBOURG",
+   "fournisseur": "GAZ DE BORDEAUX"
+  },
+  "created_at": "2026-08-03T13:24:22.728793"
+ },
+ {
+  "id": "48c7edaf",
+  "email": "mlepage@capitole-energie.com",
+  "action": "Contrat GDB généré — contrat_GDB_advenis_property_management.docx",
+  "details": {
+   "client": "ADVENIS PROPERTY MANAGEMENT",
+   "fournisseur": "GAZ DE BORDEAUX"
+  },
+  "created_at": "2026-07-30T08:05:47.717154"
+ },
+ {
+  "id": "7831582e",
+  "email": "mlepage@capitole-energie.com",
+  "action": "Contrat GDB généré — contrat_GDB_hotel_axial_beaubourg.docx",
+  "details": {
+   "client": "HOTEL AXIAL BEAUBOURG",
+   "fournisseur": "GAZ DE BORDEAUX"
+  },
+  "created_at": "2026-07-30T08:04:47.898173"
+ },
+ {
+  "id": "mint0001",
+  "email": "mlepage@capitole-energie.com",
+  "action": "Contrat généré — contrat_C4_hotel_le_relais_saint_germain_01-01-2028.docx",
+  "details": {
+   "segment": "C4"
+  },
+  "created_at": "2026-07-08T15:38:38.555232"
+ },
+ {
+  "id": "mint0002",
+  "email": "vchoisy@capitole-energie.com",
+  "action": "Contrat généré — contrat_MULTI_osiris_16-07-2026.docx",
+  "details": {
+   "segment": "MULTI"
+  },
+  "created_at": "2026-07-16T10:18:49.838400"
+ },
+ {
+  "id": "retour01",
+  "email": "mlepage@capitole-energie.com",
+  "action": "Retour gain GDB généré — retour_gain_GDB_solexia.xlsx",
+  "details": {
+   "client": "SOLEXIA"
+  },
+  "created_at": "2026-07-28T09:10:20.946814"
+ },
+ {
+  "id": "odoo0003",
+  "email": "mlepage@capitole-energie.com",
+  "action": "Import Odoo généré",
+  "details": {
+   "filename": "import_odoo_contrats.csv",
+   "path": "2026/05/2026-05-02T10-00-00-000Z_import_odoo_contrats.csv",
+   "size": 19004,
+   "rows_in": 412,
+   "rows_out": 412,
+   "rows_rejected": 0,
+   "import_type": "sale.order",
+   "client": "SOLEXIA",
+   "file_purged": true
+  },
+  "created_at": "2026-05-02T10:00:00.000000"
+ },
+ {
+  "id": "odoo0004",
+  "email": "dlauger@capitole-energie.com",
+  "action": "Import Odoo généré",
+  "details": {
+   "filename": "import_divers.csv",
+   "path": "2026/08/2026-08-20T08-00-00-000Z_import_divers.csv",
+   "size": 8100,
+   "rows_in": 300,
+   "rows_out": 297,
+   "rows_rejected": 3
+  },
+  "created_at": "2026-08-20T08:00:00.000000"
+ }
 ]
