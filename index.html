@@ -827,7 +827,10 @@ function peindreDetail(){
     if (col.type==='category') return `<td><span class="etiq ${esc(v.color||'grey')}">${esc(v.display)}</span></td>`;
     if (col.type==='chip')     return `<td>${v.display?`<span class="etiq">${esc(v.display)}</span>`:'<span class="muted">—</span>'}</td>`;
     if (col.type==='list')     return `<td>${(v.list||[]).map(x=>`<span class="etiq bleu">${esc(x)}</span>`).join('') || '<span class="muted">—</span>'}</td>`;
-    if (col.type==='ref')      return `<td>${v.display?`<span class="ref">${esc(v.display)}</span>`:'<span class="muted">—</span>'}</td>`;
+    if (col.type==='ref')      return `<td>${v.display?`<span class="ref">${esc(v.display)}</span>`:'<span class="muted">—</span>'}${
+                                   v.note?`<div class="note">${esc(v.note)}</div>`:''}</td>`;
+    if (col.type==='group')    return `<td>${(v.items||[]).map(i=>
+                                   `<span class="etiq ${esc(i.style)}">${esc(i.display)}</span>`).join('') || '<span class="muted">—</span>'}</td>`;
     if (col.type==='note')     return `<td>${v.display?`<div class="note">${esc(v.display)}</div>`:'<span class="muted">—</span>'}</td>`;
     if (col.type==='file')     return `<td>${celluleFichier(v)}</td>`;
     return `<td>${v.display ? esc(v.display) : '<span class="muted">—</span>'}</td>`;
